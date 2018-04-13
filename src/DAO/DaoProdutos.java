@@ -12,8 +12,7 @@ import modelo.ModelProdutos;
 public class DaoProdutos extends ConexaoMySql {
 
     /**
-     * CADASTRAR UM PRODUTO NO BANCO
-     *
+     * Cadastrar produtos no banco    
      * @param pModelProdutos
      * @return
      */
