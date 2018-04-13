@@ -38,9 +38,8 @@ public class DaoProdutos extends ConexaoMySql {
 
     }
 
-    /**
-     * EXCLUIR UM PRODUTO DO BANCO
-     *
+    /**     
+     *Excluir produtos do banco
      * @param pIdProduto
      * @return boolean
      */
