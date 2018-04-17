@@ -113,7 +113,10 @@ public class DaoProdutos extends ConexaoMySql {
         }
         return modelProdutos;
     }
-
+    /**
+     * Metodo para retornar lista completa de Produto
+     * @return 
+     */
     public ArrayList<ModelProdutos> restornarListaProdutosDAO() {
         ArrayList<ModelProdutos> listaModelProdutos = new ArrayList<>();
         ModelProdutos modelProdutos = new ModelProdutos();
@@ -128,6 +131,7 @@ public class DaoProdutos extends ConexaoMySql {
                     + "FROM tbl_produto;");
         
             while (this.getResultSet().next()) {
+                modelProdutos = new ModelProdutos();
                 modelProdutos.setId_produtos(getResultSet().getInt(1));
                 modelProdutos.setNome_prod(getResultSet().getString(2));
                 modelProdutos.setValor_prod(getResultSet().getDouble(3));

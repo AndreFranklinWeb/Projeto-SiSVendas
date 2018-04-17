@@ -56,9 +56,9 @@ public class frm_cliente extends javax.swing.JFrame {
 
         jPanel1.setLayout(null);
 
-        jLabel1.setText("CODIGO");
+        jLabel1.setText("Código");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(20, 60, 60, 17);
+        jLabel1.setBounds(10, 10, 60, 17);
 
         txt_cod_cli.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -66,51 +66,51 @@ public class frm_cliente extends javax.swing.JFrame {
             }
         });
         jPanel1.add(txt_cod_cli);
-        txt_cod_cli.setBounds(19, 80, 80, 30);
+        txt_cod_cli.setBounds(10, 30, 80, 30);
         jPanel1.add(txt_bairro_cli);
-        txt_bairro_cli.setBounds(450, 140, 240, 30);
+        txt_bairro_cli.setBounds(440, 90, 240, 30);
 
-        jLabel2.setText("BAIRRO");
+        jLabel2.setText("Bairro");
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(450, 120, 60, 20);
+        jLabel2.setBounds(440, 70, 60, 20);
         jPanel1.add(txt_cidade_cli);
-        txt_cidade_cli.setBounds(20, 200, 250, 30);
+        txt_cidade_cli.setBounds(10, 150, 250, 30);
 
-        jLabel3.setText("CIDADE");
+        jLabel3.setText("Cidade");
         jPanel1.add(jLabel3);
-        jLabel3.setBounds(20, 180, 160, 20);
+        jLabel3.setBounds(10, 130, 160, 20);
 
         jLabel4.setText("UF");
         jPanel1.add(jLabel4);
-        jLabel4.setBounds(280, 180, 60, 20);
+        jLabel4.setBounds(270, 130, 60, 20);
         jPanel1.add(txt_nome_cli);
-        txt_nome_cli.setBounds(110, 80, 580, 30);
+        txt_nome_cli.setBounds(100, 30, 580, 30);
 
-        jLabel5.setText("NOME");
+        jLabel5.setText("Nome");
         jPanel1.add(jLabel5);
-        jLabel5.setBounds(110, 58, 70, 20);
+        jLabel5.setBounds(100, 10, 70, 20);
         jPanel1.add(txt_end_cli);
-        txt_end_cli.setBounds(20, 140, 420, 30);
+        txt_end_cli.setBounds(10, 90, 420, 30);
 
-        jLabel6.setText("ENDEREÇO");
+        jLabel6.setText("Endereço");
         jPanel1.add(jLabel6);
-        jLabel6.setBounds(20, 120, 100, 20);
+        jLabel6.setBounds(10, 70, 100, 20);
 
-        jLabel7.setText("TELEFONE");
+        jLabel7.setText("Telefone");
         jPanel1.add(jLabel7);
-        jLabel7.setBounds(480, 180, 110, 20);
+        jLabel7.setBounds(470, 130, 110, 20);
         jPanel1.add(txt_tel_cli);
-        txt_tel_cli.setBounds(480, 200, 210, 30);
+        txt_tel_cli.setBounds(470, 150, 210, 30);
 
         jLabel8.setText("CEP");
         jPanel1.add(jLabel8);
-        jLabel8.setBounds(350, 180, 110, 20);
+        jLabel8.setBounds(340, 130, 110, 20);
         jPanel1.add(txt_cep_cli);
-        txt_cep_cli.setBounds(350, 200, 120, 30);
+        txt_cep_cli.setBounds(340, 150, 120, 30);
 
         cbb_estado_cli.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" }));
         jPanel1.add(cbb_estado_cli);
-        cbb_estado_cli.setBounds(280, 200, 60, 30);
+        cbb_estado_cli.setBounds(270, 150, 60, 30);
 
         tb_cliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -149,38 +149,56 @@ public class frm_cliente extends javax.swing.JFrame {
         }
 
         jPanel1.add(jScrollPane1);
-        jScrollPane1.setBounds(20, 250, 670, 190);
+        jScrollPane1.setBounds(20, 200, 670, 240);
 
         btn_cancelar_cli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENS/remove.png"))); // NOI18N
-        btn_cancelar_cli.setText("CANCELAR");
+        btn_cancelar_cli.setText("Cancelar");
+        btn_cancelar_cli.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cancelar_cliActionPerformed(evt);
+            }
+        });
         jPanel1.add(btn_cancelar_cli);
-        btn_cancelar_cli.setBounds(80, 460, 130, 60);
+        btn_cancelar_cli.setBounds(90, 460, 120, 40);
 
         btn_novo_cli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENS/cad-adicionar.png"))); // NOI18N
-        btn_novo_cli.setText("NOVO");
+        btn_novo_cli.setText("Novo");
+        btn_novo_cli.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_novo_cliActionPerformed(evt);
+            }
+        });
         jPanel1.add(btn_novo_cli);
-        btn_novo_cli.setBounds(230, 460, 120, 60);
+        btn_novo_cli.setBounds(240, 460, 110, 40);
 
         btn_alterar_cli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENS/cad-editar.png"))); // NOI18N
-        btn_alterar_cli.setText("ALTERAR");
+        btn_alterar_cli.setText("Alterar");
         jPanel1.add(btn_alterar_cli);
-        btn_alterar_cli.setBounds(370, 460, 120, 60);
+        btn_alterar_cli.setBounds(380, 460, 110, 41);
 
         btn_salvar_cli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENS/accept.png"))); // NOI18N
-        btn_salvar_cli.setText("SALVAR");
+        btn_salvar_cli.setText("Salvar");
         jPanel1.add(btn_salvar_cli);
-        btn_salvar_cli.setBounds(510, 460, 120, 60);
+        btn_salvar_cli.setBounds(520, 460, 120, 40);
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(10, 10, 710, 530);
+        jPanel1.setBounds(0, 0, 710, 540);
 
-        setSize(new java.awt.Dimension(748, 591));
+        setSize(new java.awt.Dimension(728, 578));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txt_cod_cliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_cod_cliActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_cod_cliActionPerformed
+
+    private void btn_cancelar_cliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelar_cliActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_cancelar_cliActionPerformed
+
+    private void btn_novo_cliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_novo_cliActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_novo_cliActionPerformed
 
     /**
      * @param args the command line arguments
