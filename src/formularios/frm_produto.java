@@ -45,13 +45,7 @@ public class frm_produto extends javax.swing.JFrame {
             
         }
     }
-    
-    
-    
-    
-    
-    
-    
+    //resolver problema
     
     /**
      * This method is called from within the constructor to initialize the form.
