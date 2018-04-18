@@ -5,11 +5,19 @@
  */
 package formularios;
 
+import controller.ControllerProdutos;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+import modelo.ModelProdutos;
+
 /**
  *
  * @author Andre Franklin
  */
 public class frm_produto extends javax.swing.JFrame {
+    
+    ArrayList<ModelProdutos> listarModelProdutos = new ArrayList<>();
+    ControllerProdutos controllerProdutos = new  ControllerProdutos();
 
     /**
      * Creates new form frm_produto
@@ -37,7 +45,7 @@ public class frm_produto extends javax.swing.JFrame {
         txt_valor_pro = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tb_produto = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
         txt_nome_prod1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
@@ -82,12 +90,9 @@ public class frm_produto extends javax.swing.JFrame {
         jPanel1.add(jLabel2);
         jLabel2.setBounds(400, 70, 60, 20);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tb_produto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Código", "Nome", "Estoque", "Valor"
@@ -108,10 +113,10 @@ public class frm_produto extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(1).setMinWidth(300);
-            jTable1.getColumnModel().getColumn(1).setPreferredWidth(300);
+        jScrollPane1.setViewportView(tb_produto);
+        if (tb_produto.getColumnModel().getColumnCount() > 0) {
+            tb_produto.getColumnModel().getColumn(1).setMinWidth(300);
+            tb_produto.getColumnModel().getColumn(1).setPreferredWidth(300);
         }
 
         jPanel1.add(jScrollPane1);
@@ -224,6 +229,22 @@ public class frm_produto extends javax.swing.JFrame {
             }
         });
     }
+    /**
+     * Preenche a tabela de produtos com os produtos cadastrados no banco.
+     */
+    private void carregarProdutos(){
+    listarModelProdutos = controllerProdutos.retornarListaProdutoController();
+    DefaultTableModel modelo = (DefaultTableModel) tb_produto.getModel();
+    modelo.setNumRows(0);
+    // Inserir produtos na tabela
+    int cont =  listarModelProdutos.size();
+        for (int i = 0; i < cont; i++);
+          
+                   
+            
+    
+}
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_alterar_prod;
@@ -239,7 +260,7 @@ public class frm_produto extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tb_produto;
     private javax.swing.JTextField txt_cod_prod;
     private javax.swing.JTextField txt_estoque_prod;
     private javax.swing.JTextField txt_nome_prod;
