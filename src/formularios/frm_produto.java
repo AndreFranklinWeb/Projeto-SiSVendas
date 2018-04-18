@@ -236,7 +236,7 @@ public class frm_produto extends javax.swing.JFrame {
     listarModelProdutos = controllerProdutos.retornarListaProdutoController();
     DefaultTableModel modelo = (DefaultTableModel) tb_produto.getModel();
     modelo.setNumRows(0);
-    // Inserir produtos na tabela
+    // Inserir produtos na tabela produtos
     int cont =  listarModelProdutos.size();
         for (int i = 0; i < cont; i++);
           

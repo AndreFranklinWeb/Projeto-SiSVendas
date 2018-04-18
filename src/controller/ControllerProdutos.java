@@ -8,7 +8,7 @@ public class ControllerProdutos {
     
     private DaoProdutos daoProdutos = new DaoProdutos();
     /**
-     * Salvar produto Controller
+     * Salvar produto no frm_Controller
      * @param pModelProdutos
      * @return 
      */
