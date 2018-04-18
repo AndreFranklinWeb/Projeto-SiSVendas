@@ -26,6 +26,33 @@ public class frm_produto extends javax.swing.JFrame {
         initComponents();
     }
 
+    
+    private void carregarProdutos(){
+    listarModelProdutos = controllerProdutos.retornarListaProdutoController();
+    DefaultTableModel modelo = (DefaultTableModel) tb_produto.getModel();
+    modelo.setNumRows(0);
+    // Inserir produtos na tabela produtos
+    int cont =  listarModelProdutos.size();
+       
+    for (int i = 0; i < cont; i++){
+            
+            modelo.addRow(new Object[0]);
+            
+            listarModelProdutos.get(i).getId_produtos();
+            listarModelProdutos.get(i).getNome_prod();           
+            listarModelProdutos.get(i).getEstoque_prod();
+            listarModelProdutos.get(i).getValor_prod();            
+            
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -232,18 +259,13 @@ public class frm_produto extends javax.swing.JFrame {
     /**
      * Preenche a tabela de produtos com os produtos cadastrados no banco.
      */
-    private void carregarProdutos(){
-    listarModelProdutos = controllerProdutos.retornarListaProdutoController();
-    DefaultTableModel modelo = (DefaultTableModel) tb_produto.getModel();
-    modelo.setNumRows(0);
-    // Inserir produtos na tabela produtos
-    int cont =  listarModelProdutos.size();
-        for (int i = 0; i < cont; i++);
-          
+    
+
+  
                    
             
     
-}
+
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
