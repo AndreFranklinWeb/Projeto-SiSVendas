@@ -36,17 +36,15 @@ public class frm_produto extends javax.swing.JFrame {
        
     for (int i = 0; i < cont; i++){
             
-            modelo.addRow(new Object[0]);
-            
-            listarModelProdutos.get(i).getId_produtos();
-            listarModelProdutos.get(i).getNome_prod();           
-            listarModelProdutos.get(i).getEstoque_prod();
-            listarModelProdutos.get(i).getValor_prod();            
-            
+            modelo.addRow(new Object[] {
+            listarModelProdutos.get(i).getId_produtos(),
+            listarModelProdutos.get(i).getNome_prod(),         
+            listarModelProdutos.get(i).getEstoque_prod(),
+            listarModelProdutos.get(i).getValor_prod()            
+            });  
         }
     }
-    //resolver problema
-    
+        
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
