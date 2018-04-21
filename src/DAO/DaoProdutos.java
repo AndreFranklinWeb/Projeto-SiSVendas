@@ -3,7 +3,7 @@
  */
 package DAO;
 
-import Conexao.ConexaoMySql;
+import conexao.ConexaoMySql;
 import java.util.ArrayList;
 import modelo.ModelProdutos;
 
@@ -26,7 +26,7 @@ public class DaoProdutos extends ConexaoMySql {
                     + " valor_prod,"
                     + " estoque_prod"
                     + ")VALUES ("
-                    + "'" + pModelProdutos.getNome_prod() + "',"
+                    + "'" + pModelProdutos.getNome_prod() + "',"                            
                     + "'" + pModelProdutos.getValor_prod() + "',"
                     + "'" + pModelProdutos.getEstoque_prod() + "'"
             );
@@ -41,7 +41,6 @@ public class DaoProdutos extends ConexaoMySql {
 
     /**
      * Excluir produtos do banco
-     *
      * @param pIdProduto
      * @return boolean
      */
@@ -85,7 +84,6 @@ public class DaoProdutos extends ConexaoMySql {
 
     /**
      * Metodo vai retornar o produto pelo código
-     *
      * @param pIdProduto
      * @return
      */
@@ -95,8 +93,8 @@ public class DaoProdutos extends ConexaoMySql {
             this.conectar();
             this.executarSQL("SELECT"
                     + "nome_prod,"
-                    + " valor_prod,"
-                    + " estoque_prod,"
+                    + "valor_prod,"
+                    + "estoque_prod,"
                     + "FROM tbl_produto WHERE pk_id_produto = '" + pIdProduto + "'");
 
             while (this.getResultSet().next()) {
@@ -105,7 +103,7 @@ public class DaoProdutos extends ConexaoMySql {
                 modelProdutos.setValor_prod(getResultSet().getDouble(3));
                 modelProdutos.setEstoque_prod(getResultSet().getInt(4));
             }
-
+            
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -113,11 +111,12 @@ public class DaoProdutos extends ConexaoMySql {
         }
         return modelProdutos;
     }
+    
     /**
      * Metodo para retornar lista completa de Produto
      * @return 
      */
-    public ArrayList<ModelProdutos> restornarListaProdutosDAO() {
+    public ArrayList<ModelProdutos> retornarListaProdutosDAO() {
         ArrayList<ModelProdutos> listaModelProdutos = new ArrayList<>();
         ModelProdutos modelProdutos = new ModelProdutos();
         
@@ -126,8 +125,8 @@ public class DaoProdutos extends ConexaoMySql {
             this.executarSQL("SELECT"
                     + "pk_id_produto,"
                     + "nome_prod,"
-                    + " valor_prod,"
-                    + " estoque_prod,"
+                    + "valor_prod,"
+                    + "estoque_prod,"
                     + "FROM tbl_produto;");
         
             while (this.getResultSet().next()) {

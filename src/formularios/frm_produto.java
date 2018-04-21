@@ -24,27 +24,10 @@ public class frm_produto extends javax.swing.JFrame {
      */
     public frm_produto() {
         initComponents();
+        carregarProdutos();
+        setLocationRelativeTo(null);
     }
-
     
-    private void carregarProdutos(){
-    listarModelProdutos = controllerProdutos.retornarListaProdutoController();
-    DefaultTableModel modelo = (DefaultTableModel) tb_produto.getModel();
-    modelo.setNumRows(0);
-    // Inserir produtos na tabela produtos
-    int cont =  listarModelProdutos.size();
-       
-    for (int i = 0; i < cont; i++){
-            
-            modelo.addRow(new Object[] {
-            listarModelProdutos.get(i).getId_produtos(),
-            listarModelProdutos.get(i).getNome_prod(),         
-            listarModelProdutos.get(i).getEstoque_prod(),
-            listarModelProdutos.get(i).getValor_prod()            
-            });  
-        }
-    }
-        
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -195,7 +178,7 @@ public class frm_produto extends javax.swing.JFrame {
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 580, 420);
 
-        pack();
+        setBounds(0, 0, 598, 456);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txt_cod_prodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_cod_prodActionPerformed
@@ -251,13 +234,23 @@ public class frm_produto extends javax.swing.JFrame {
     /**
      * Preenche a tabela de produtos com os produtos cadastrados no banco.
      */
-    
-
-  
-                   
+    private void carregarProdutos(){
+    listarModelProdutos = controllerProdutos.retornarListaProdutoController();
+    DefaultTableModel modelo = (DefaultTableModel) tb_produto.getModel();
+    modelo.setNumRows(0);
+    // Inserir produtos na tabela produtos
+    int cont = listarModelProdutos.size();
+       
+    for (int i = 0; i < cont; i++){
             
-    
-
+            modelo.addRow(new Object[]{
+            listarModelProdutos.get(i).getId_produtos(),
+            listarModelProdutos.get(i).getNome_prod(),         
+            listarModelProdutos.get(i).getEstoque_prod(),
+            listarModelProdutos.get(i).getValor_prod()            
+            });  
+        }
+    }
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

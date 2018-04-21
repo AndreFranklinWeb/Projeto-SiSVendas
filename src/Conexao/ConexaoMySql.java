@@ -1,11 +1,5 @@
-/*
- SiSVendas
- */
-package Conexao;
+package conexao;
 
-/*
-@author Andre Franklin
-*/
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -13,10 +7,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 
+/**
+ *
+ * @author Andre Franklin - SiS Vendas
+ */
 public class ConexaoMySql {
 
     private boolean status = false;
-    private String mensagem = "";   //variavel que vai informar o status da conexao
+    private String mensagem = " ";   //variavel que vai informar o status da conexao
     private Connection con = null;  //variavel para conexao
     private Statement statement;
     private ResultSet resultSet;
@@ -262,4 +260,3 @@ public class ConexaoMySql {
     }
 
 }
-
