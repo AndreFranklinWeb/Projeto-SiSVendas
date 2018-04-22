@@ -24,7 +24,7 @@ public class frm_produto extends javax.swing.JFrame {
      */
     public frm_produto() {
         initComponents();
-        carregarProdutos();
+        //carregarProdutos();
         setLocationRelativeTo(null);
     }
     
@@ -239,8 +239,7 @@ public class frm_produto extends javax.swing.JFrame {
     DefaultTableModel modelo = (DefaultTableModel) tb_produto.getModel();
     modelo.setNumRows(0);
     // Inserir produtos na tabela produtos
-    int cont = listarModelProdutos.size();
-       
+    int cont = listarModelProdutos.size();       
     for (int i = 0; i < cont; i++){
             
             modelo.addRow(new Object[]{
