@@ -36,7 +36,6 @@ public class DaoProdutos extends ConexaoMySql {
         } finally {
             this.fecharConexao();
         }
-
     }
 
     /**
@@ -68,11 +67,7 @@ public class DaoProdutos extends ConexaoMySql {
         try {
             this.conectar();
             return this.executarUpdateDeleteSQL(
-                    "UPDATE tbl_produto SET"
-                    + "nome_prod = '" + pModelProdutos.getNome_prod() + "',"
-                    + " valor_prod = '" + pModelProdutos.getValor_prod() + "',"
-                    + " estoque_prod= '" + pModelProdutos.getEstoque_prod() + "',"
-                    + "WHERE pk_id_produto = '" + pModelProdutos.getId_produtos() + "'"
+                    "UPDATE tbl_produto SET nome_prod = '" + pModelProdutos.getNome_prod() +"', valor_prod = '" + pModelProdutos.getValor_prod() + "', estoque_prod= '" + pModelProdutos.getEstoque_prod() + "', WHERE pk_id_produto = '" + pModelProdutos.getId_produtos() + "'"
             );
         } catch (Exception e) {
             e.printStackTrace();
@@ -91,11 +86,7 @@ public class DaoProdutos extends ConexaoMySql {
         ModelProdutos modelProdutos = new ModelProdutos();
         try {
             this.conectar();
-            this.executarSQL("SELECT"
-                    + "nome_prod,"
-                    + "valor_prod,"
-                    + "estoque_prod,"
-                    + "FROM tbl_produto WHERE pk_id_produto = '" + pIdProduto + "'");
+            this.executarSQL("SELECT pk_id_prod, nome_prod, valor_prod, estoque_prod FROM tbl_produto WHERE pk_id_prod = '" + pIdProduto + "'");
 
             while (this.getResultSet().next()) {
                 modelProdutos.setId_produtos(getResultSet().getInt(1));
@@ -116,18 +107,13 @@ public class DaoProdutos extends ConexaoMySql {
      * Metodo para retornar lista completa de Produto
      * @return 
      */
-    public ArrayList<ModelProdutos> retornarListaProdutosDAO() {
+    public ArrayList<ModelProdutos> retornarListaProdutosDAO(){
         ArrayList<ModelProdutos> listaModelProdutos = new ArrayList<>();
         ModelProdutos modelProdutos = new ModelProdutos();
         
        try {
             this.conectar();
-            this.executarSQL("SELECT"
-                    + "pk_id_produto,"
-                    + "nome_prod,"
-                    + "valor_prod,"
-                    + "estoque_prod,"
-                    + "FROM tbl_produto;");
+            this.executarSQL("SELECT pk_id_prod,nome_prod, valor_prod, estoque_prod FROM tbl_produto");
         
             while (this.getResultSet().next()) {
                 modelProdutos = new ModelProdutos();
@@ -143,5 +129,5 @@ public class DaoProdutos extends ConexaoMySql {
            this.fecharConexao();
         }
         return listaModelProdutos;
-    }
-}
+    }    
+}    

@@ -24,7 +24,7 @@ public class frm_produto extends javax.swing.JFrame {
      */
     public frm_produto() {
         initComponents();
-        //carregarProdutos();
+        carregarProdutos();
         setLocationRelativeTo(null);
     }
     
@@ -172,6 +172,11 @@ public class frm_produto extends javax.swing.JFrame {
 
         btn_salvar_prod.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENS/accept.png"))); // NOI18N
         btn_salvar_prod.setText("Salvar");
+        btn_salvar_prod.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_salvar_prodActionPerformed(evt);
+            }
+        });
         jPanel1.add(btn_salvar_prod);
         btn_salvar_prod.setBounds(470, 370, 100, 40);
 
@@ -196,6 +201,10 @@ public class frm_produto extends javax.swing.JFrame {
     private void btn_novo_prodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_novo_prodActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_novo_prodActionPerformed
+
+    private void btn_salvar_prodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salvar_prodActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_salvar_prodActionPerformed
 
     /**
      * @param args the command line arguments

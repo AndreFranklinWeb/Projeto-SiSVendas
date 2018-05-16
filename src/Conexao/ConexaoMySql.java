@@ -44,7 +44,7 @@ public class ConexaoMySql {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
 
             //local do banco, nome do banco, usuario e senha
-            String url = "jdbc:mysql://" + servidor + "/" + nomeDoBanco;
+            String url = "jdbc:mysql://localhost:3306/db_vendas";
             this.setCon((Connection) DriverManager.getConnection(url, usuario, senha));
 
             //se ocorrer tudo bem, ou seja, se conectar a linha a segui é executada
@@ -55,6 +55,8 @@ public class ConexaoMySql {
         }
         return this.getCon();
     }
+    
+    
 
     /**
      * Executa consultas SQL
@@ -139,6 +141,8 @@ public class ConexaoMySql {
        }
        return false;
     }
+    
+  
 
     /**
      * @return the status
@@ -258,5 +262,7 @@ public class ConexaoMySql {
     public void setSenha(String senha) {
         this.senha = senha;
     }
+    
+    
 
 }

@@ -6,7 +6,7 @@ import modelo.ModelProdutos;
 
 public class ControllerProdutos {
     
-    private final DaoProdutos daoProdutos = new DaoProdutos();
+    private DaoProdutos daoProdutos = new DaoProdutos();
     /**
      * Salvar produto no frm_Controller
      * @param pModelProdutos
@@ -16,7 +16,7 @@ public class ControllerProdutos {
        return this.daoProdutos.salvarProdutosDAO(pModelProdutos);        
     }
     /**
-     * Ecluir um produto pelo codigo.
+     * Excluir um produto pelo codigo.
      * @param pCodigo
      * @return 
      */
@@ -42,8 +42,8 @@ public class ControllerProdutos {
         return this.daoProdutos.retornarProdutoDAO(pCodigo);
     }
     /**
-     * Listar Produto
-     * @return 
+     * retornar Lista de Produtos
+     * @return pModelProdutos
      */
     public ArrayList<ModelProdutos> retornarListaProdutoController(){
         return this.daoProdutos.retornarListaProdutosDAO();
