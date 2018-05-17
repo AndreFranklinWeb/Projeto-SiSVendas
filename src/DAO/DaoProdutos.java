@@ -28,8 +28,8 @@ public class DaoProdutos extends ConexaoMySql {
                     + ")VALUES ("
                     + "'" + pModelProdutos.getNome_prod() + "',"                            
                     + "'" + pModelProdutos.getValor_prod() + "',"
-                    + "'" + pModelProdutos.getEstoque_prod() + "'"
-            );
+                    + "'" + pModelProdutos.getEstoque_prod() + "')");
+            
         } catch (Exception e) {
             e.printStackTrace();
             return 0;
@@ -47,7 +47,7 @@ public class DaoProdutos extends ConexaoMySql {
         try {
             this.conectar();
             return this.executarUpdateDeleteSQL(
-                    "DELETE FROM tbl_produto WHERE pk_id_produto = '" + pIdProduto + "'"
+                    "DELETE FROM tbl_produto WHERE pk_id_prod = '" + pIdProduto + "'"
             );
         } catch (Exception e) {
             e.printStackTrace();

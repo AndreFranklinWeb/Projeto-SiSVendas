@@ -7,6 +7,7 @@ package formularios;
 
 import controller.ControllerProdutos;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.ModelProdutos;
 
@@ -18,6 +19,7 @@ public class frm_produto extends javax.swing.JFrame {
     
     ArrayList<ModelProdutos> listarModelProdutos = new ArrayList<>();
     ControllerProdutos controllerProdutos = new  ControllerProdutos();
+    ModelProdutos modelprodutos = new ModelProdutos();
 
     /**
      * Creates new form frm_produto
@@ -44,7 +46,7 @@ public class frm_produto extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         txt_estoque_prod = new javax.swing.JTextField();
-        txt_valor_pro = new javax.swing.JTextField();
+        txt_valor_prod = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tb_produto = new javax.swing.JTable();
@@ -85,8 +87,8 @@ public class frm_produto extends javax.swing.JFrame {
         jLabel6.setBounds(10, 70, 100, 20);
         jPanel1.add(txt_estoque_prod);
         txt_estoque_prod.setBounds(10, 90, 220, 30);
-        jPanel1.add(txt_valor_pro);
-        txt_valor_pro.setBounds(400, 90, 170, 30);
+        jPanel1.add(txt_valor_prod);
+        txt_valor_prod.setBounds(400, 90, 170, 30);
 
         jLabel2.setText("Valor");
         jPanel1.add(jLabel2);
@@ -152,6 +154,11 @@ public class frm_produto extends javax.swing.JFrame {
 
         btn_excluir_prod.setIcon(new javax.swing.ImageIcon("D:\\PROGRAMAS - DESENVOLVIMENTO\\ICONES botoes de sistemas\\png\\24x24\\application_remove.png")); // NOI18N
         btn_excluir_prod.setText("Excluir");
+        btn_excluir_prod.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_excluir_prodActionPerformed(evt);
+            }
+        });
         jPanel1.add(btn_excluir_prod);
         btn_excluir_prod.setBounds(120, 370, 110, 40);
 
@@ -203,8 +210,32 @@ public class frm_produto extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_novo_prodActionPerformed
 
     private void btn_salvar_prodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salvar_prodActionPerformed
-        // TODO add your handling code here:
+        // Salvando dados no banco
+        modelprodutos.setNome_prod(this.txt_nome_prod.getText());
+        modelprodutos.setEstoque_prod(Integer.parseInt(txt_estoque_prod.getText()));
+        modelprodutos.setValor_prod(Double.parseDouble(this.txt_valor_prod.getText()));
+        if(controllerProdutos.salvarProdutoController(modelprodutos)>0){
+            JOptionPane.showMessageDialog(this, "Produto cadastrado com sucesso !");
+            this.carregarProdutos();
+        }else{
+            JOptionPane.showMessageDialog(this, "Erro ao cadastrar o produto !");
+        }
+        
+        
     }//GEN-LAST:event_btn_salvar_prodActionPerformed
+
+    private void btn_excluir_prodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_excluir_prodActionPerformed
+        // Excluir um produto do banco de dados
+        int linha = tb_produto.getSelectedRow();
+        int codigoProduto = (int) tb_produto.getValueAt(linha, 0);
+        
+        if (controllerProdutos.excluirProdutoController(codigoProduto)){
+            JOptionPane.showMessageDialog(this, "Produto excluido com sucesso !");
+            this.carregarProdutos();
+        }else{
+            JOptionPane.showConfirmDialog(this, "Erro ao excluir produto !");
+        }        
+    }//GEN-LAST:event_btn_excluir_prodActionPerformed
 
     /**
      * @param args the command line arguments
@@ -280,6 +311,6 @@ public class frm_produto extends javax.swing.JFrame {
     private javax.swing.JTextField txt_estoque_prod;
     private javax.swing.JTextField txt_nome_prod;
     private javax.swing.JTextField txt_nome_prod1;
-    private javax.swing.JTextField txt_valor_pro;
+    private javax.swing.JTextField txt_valor_prod;
     // End of variables declaration//GEN-END:variables
 }
