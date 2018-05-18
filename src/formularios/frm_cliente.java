@@ -50,6 +50,7 @@ public class frm_cliente extends javax.swing.JFrame {
         btn_novo_cli = new javax.swing.JButton();
         btn_alterar_cli = new javax.swing.JButton();
         btn_salvar_cli = new javax.swing.JButton();
+        btn_excluir_cli = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -60,6 +61,8 @@ public class frm_cliente extends javax.swing.JFrame {
         jPanel1.add(jLabel1);
         jLabel1.setBounds(10, 10, 60, 17);
 
+        txt_cod_cli.setEditable(false);
+        txt_cod_cli.setBorder(null);
         txt_cod_cli.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_cod_cliActionPerformed(evt);
@@ -68,7 +71,7 @@ public class frm_cliente extends javax.swing.JFrame {
         jPanel1.add(txt_cod_cli);
         txt_cod_cli.setBounds(10, 30, 80, 30);
         jPanel1.add(txt_bairro_cli);
-        txt_bairro_cli.setBounds(440, 90, 240, 30);
+        txt_bairro_cli.setBounds(440, 90, 220, 30);
 
         jLabel2.setText("Bairro");
         jPanel1.add(jLabel2);
@@ -84,7 +87,7 @@ public class frm_cliente extends javax.swing.JFrame {
         jPanel1.add(jLabel4);
         jLabel4.setBounds(270, 130, 60, 20);
         jPanel1.add(txt_nome_cli);
-        txt_nome_cli.setBounds(100, 30, 580, 30);
+        txt_nome_cli.setBounds(100, 30, 560, 30);
 
         jLabel5.setText("Nome");
         jPanel1.add(jLabel5);
@@ -100,7 +103,7 @@ public class frm_cliente extends javax.swing.JFrame {
         jPanel1.add(jLabel7);
         jLabel7.setBounds(470, 130, 110, 20);
         jPanel1.add(txt_tel_cli);
-        txt_tel_cli.setBounds(470, 150, 210, 30);
+        txt_tel_cli.setBounds(470, 150, 190, 30);
 
         jLabel8.setText("CEP");
         jPanel1.add(jLabel8);
@@ -114,14 +117,7 @@ public class frm_cliente extends javax.swing.JFrame {
 
         tb_cliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "CODIGO", "NOME", "CIDADE", "TELEFONE"
@@ -131,7 +127,7 @@ public class frm_cliente extends javax.swing.JFrame {
                 java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                true, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -149,9 +145,9 @@ public class frm_cliente extends javax.swing.JFrame {
         }
 
         jPanel1.add(jScrollPane1);
-        jScrollPane1.setBounds(20, 200, 670, 240);
+        jScrollPane1.setBounds(10, 200, 650, 240);
 
-        btn_cancelar_cli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENS/remove.png"))); // NOI18N
+        btn_cancelar_cli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENS/Cancelar (1).png"))); // NOI18N
         btn_cancelar_cli.setText("Cancelar");
         btn_cancelar_cli.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -159,9 +155,9 @@ public class frm_cliente extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btn_cancelar_cli);
-        btn_cancelar_cli.setBounds(90, 460, 120, 40);
+        btn_cancelar_cli.setBounds(20, 460, 110, 40);
 
-        btn_novo_cli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENS/cad-adicionar.png"))); // NOI18N
+        btn_novo_cli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENS/Adicionar (1).png"))); // NOI18N
         btn_novo_cli.setText("Novo");
         btn_novo_cli.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -169,22 +165,27 @@ public class frm_cliente extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btn_novo_cli);
-        btn_novo_cli.setBounds(240, 460, 110, 40);
+        btn_novo_cli.setBounds(410, 460, 110, 40);
 
-        btn_alterar_cli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENS/cad-editar.png"))); // NOI18N
+        btn_alterar_cli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENS/page_edit.png"))); // NOI18N
         btn_alterar_cli.setText("Alterar");
         jPanel1.add(btn_alterar_cli);
-        btn_alterar_cli.setBounds(380, 460, 110, 41);
+        btn_alterar_cli.setBounds(280, 460, 110, 40);
 
-        btn_salvar_cli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENS/accept.png"))); // NOI18N
+        btn_salvar_cli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENS/Salvar (1).png"))); // NOI18N
         btn_salvar_cli.setText("Salvar");
         jPanel1.add(btn_salvar_cli);
-        btn_salvar_cli.setBounds(520, 460, 120, 40);
+        btn_salvar_cli.setBounds(540, 460, 120, 40);
+
+        btn_excluir_cli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENS/Excluir (1).png"))); // NOI18N
+        btn_excluir_cli.setText("Excluir");
+        jPanel1.add(btn_excluir_cli);
+        btn_excluir_cli.setBounds(150, 460, 110, 40);
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 710, 540);
+        jPanel1.setBounds(0, 0, 670, 520);
 
-        setSize(new java.awt.Dimension(728, 578));
+        setSize(new java.awt.Dimension(686, 555));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -238,6 +239,7 @@ public class frm_cliente extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_alterar_cli;
     private javax.swing.JButton btn_cancelar_cli;
+    private javax.swing.JButton btn_excluir_cli;
     private javax.swing.JButton btn_novo_cli;
     private javax.swing.JButton btn_salvar_cli;
     private javax.swing.JComboBox<String> cbb_estado_cli;

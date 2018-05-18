@@ -20,6 +20,7 @@ public class frm_produto extends javax.swing.JFrame {
     ArrayList<ModelProdutos> listarModelProdutos = new ArrayList<>();
     ControllerProdutos controllerProdutos = new  ControllerProdutos();
     ModelProdutos modelprodutos = new ModelProdutos();
+    //String salvarAlterar;
 
     /**
      * Creates new form frm_produto
@@ -28,6 +29,7 @@ public class frm_produto extends javax.swing.JFrame {
         initComponents();
         carregarProdutos();
         setLocationRelativeTo(null);
+        habilitardDesabilitarCampos(false);
     }
     
     /**
@@ -51,7 +53,7 @@ public class frm_produto extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tb_produto = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
-        txt_nome_prod1 = new javax.swing.JTextField();
+        txt_nome_prodPesq = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         btn_cancelar_pro = new javax.swing.JButton();
         btn_excluir_prod = new javax.swing.JButton();
@@ -68,6 +70,8 @@ public class frm_produto extends javax.swing.JFrame {
         jPanel1.add(jLabel1);
         jLabel1.setBounds(10, 10, 60, 17);
 
+        txt_cod_prod.setEditable(false);
+        txt_cod_prod.setBorder(null);
         txt_cod_prod.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_cod_prodActionPerformed(evt);
@@ -76,7 +80,7 @@ public class frm_produto extends javax.swing.JFrame {
         jPanel1.add(txt_cod_prod);
         txt_cod_prod.setBounds(10, 30, 80, 30);
         jPanel1.add(txt_nome_prod);
-        txt_nome_prod.setBounds(100, 30, 470, 30);
+        txt_nome_prod.setBounds(100, 30, 520, 30);
 
         jLabel5.setText("Nome");
         jPanel1.add(jLabel5);
@@ -88,11 +92,11 @@ public class frm_produto extends javax.swing.JFrame {
         jPanel1.add(txt_estoque_prod);
         txt_estoque_prod.setBounds(10, 90, 220, 30);
         jPanel1.add(txt_valor_prod);
-        txt_valor_prod.setBounds(400, 90, 170, 30);
+        txt_valor_prod.setBounds(450, 90, 170, 30);
 
         jLabel2.setText("Valor");
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(400, 70, 60, 20);
+        jLabel2.setBounds(450, 70, 60, 20);
 
         tb_produto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -106,7 +110,7 @@ public class frm_produto extends javax.swing.JFrame {
                 java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
-                true, false, false, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -117,22 +121,25 @@ public class frm_produto extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tb_produto.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tb_produto);
         if (tb_produto.getColumnModel().getColumnCount() > 0) {
-            tb_produto.getColumnModel().getColumn(1).setMinWidth(300);
-            tb_produto.getColumnModel().getColumn(1).setPreferredWidth(300);
+            tb_produto.getColumnModel().getColumn(0).setPreferredWidth(100);
+            tb_produto.getColumnModel().getColumn(1).setPreferredWidth(250);
+            tb_produto.getColumnModel().getColumn(2).setPreferredWidth(50);
+            tb_produto.getColumnModel().getColumn(3).setPreferredWidth(50);
         }
 
         jPanel1.add(jScrollPane1);
-        jScrollPane1.setBounds(10, 200, 560, 150);
+        jScrollPane1.setBounds(10, 200, 610, 150);
 
         jLabel7.setText("Pesquisar");
         jPanel1.add(jLabel7);
         jLabel7.setBounds(10, 130, 60, 20);
-        jPanel1.add(txt_nome_prod1);
-        txt_nome_prod1.setBounds(10, 150, 440, 30);
+        jPanel1.add(txt_nome_prodPesq);
+        txt_nome_prodPesq.setBounds(10, 150, 480, 30);
 
-        jButton1.setIcon(new javax.swing.ImageIcon("D:\\PROGRAMAS - DESENVOLVIMENTO\\ICONES botoes de sistemas\\png\\16x16\\consultar.png")); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENS/Pesquisar (1).png"))); // NOI18N
         jButton1.setText("Pesquisar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -140,9 +147,9 @@ public class frm_produto extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton1);
-        jButton1.setBounds(460, 150, 110, 30);
+        jButton1.setBounds(510, 150, 110, 30);
 
-        btn_cancelar_pro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENS/remove.png"))); // NOI18N
+        btn_cancelar_pro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENS/Cancelar (1).png"))); // NOI18N
         btn_cancelar_pro.setText("Cancelar");
         btn_cancelar_pro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -150,9 +157,9 @@ public class frm_produto extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btn_cancelar_pro);
-        btn_cancelar_pro.setBounds(10, 370, 103, 40);
+        btn_cancelar_pro.setBounds(10, 370, 110, 40);
 
-        btn_excluir_prod.setIcon(new javax.swing.ImageIcon("D:\\PROGRAMAS - DESENVOLVIMENTO\\ICONES botoes de sistemas\\png\\24x24\\application_remove.png")); // NOI18N
+        btn_excluir_prod.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENS/Excluir (1).png"))); // NOI18N
         btn_excluir_prod.setText("Excluir");
         btn_excluir_prod.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -160,14 +167,19 @@ public class frm_produto extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btn_excluir_prod);
-        btn_excluir_prod.setBounds(120, 370, 110, 40);
+        btn_excluir_prod.setBounds(140, 370, 110, 40);
 
-        btn_alterar_prod.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENS/cad-editar.png"))); // NOI18N
+        btn_alterar_prod.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENS/page_edit.png"))); // NOI18N
         btn_alterar_prod.setText("Alterar");
+        btn_alterar_prod.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_alterar_prodActionPerformed(evt);
+            }
+        });
         jPanel1.add(btn_alterar_prod);
-        btn_alterar_prod.setBounds(350, 370, 110, 40);
+        btn_alterar_prod.setBounds(270, 370, 110, 40);
 
-        btn_novo_prod.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENS/cad-adicionar.png"))); // NOI18N
+        btn_novo_prod.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENS/Adicionar (1).png"))); // NOI18N
         btn_novo_prod.setText("Novo");
         btn_novo_prod.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -175,9 +187,9 @@ public class frm_produto extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btn_novo_prod);
-        btn_novo_prod.setBounds(240, 370, 100, 40);
+        btn_novo_prod.setBounds(400, 370, 100, 40);
 
-        btn_salvar_prod.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENS/accept.png"))); // NOI18N
+        btn_salvar_prod.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENS/Salvar (1).png"))); // NOI18N
         btn_salvar_prod.setText("Salvar");
         btn_salvar_prod.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -185,12 +197,12 @@ public class frm_produto extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btn_salvar_prod);
-        btn_salvar_prod.setBounds(470, 370, 100, 40);
+        btn_salvar_prod.setBounds(520, 370, 100, 40);
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 580, 420);
+        jPanel1.setBounds(0, 0, 630, 420);
 
-        setBounds(0, 0, 598, 456);
+        setBounds(0, 0, 649, 456);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txt_cod_prodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_cod_prodActionPerformed
@@ -202,40 +214,67 @@ public class frm_produto extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btn_cancelar_proActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelar_proActionPerformed
-        // TODO add your handling code here:
+        // Cancelando e limpando o cadastro
+        habilitardDesabilitarCampos(false);
+        limparCampos();
     }//GEN-LAST:event_btn_cancelar_proActionPerformed
 
     private void btn_novo_prodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_novo_prodActionPerformed
-        // TODO add your handling code here:
+        // Adicionar novo produto.
+        habilitardDesabilitarCampos(true);
+        //salvarAlterar = "salvar";
     }//GEN-LAST:event_btn_novo_prodActionPerformed
 
     private void btn_salvar_prodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salvar_prodActionPerformed
+    
         // Salvando dados no banco
         modelprodutos.setNome_prod(this.txt_nome_prod.getText());
         modelprodutos.setEstoque_prod(Integer.parseInt(txt_estoque_prod.getText()));
         modelprodutos.setValor_prod(Double.parseDouble(this.txt_valor_prod.getText()));
         if(controllerProdutos.salvarProdutoController(modelprodutos)>0){
-            JOptionPane.showMessageDialog(this, "Produto cadastrado com sucesso !");
+            JOptionPane.showMessageDialog(this, "Produto cadastrado com sucesso ! ","ATENÇÃO",JOptionPane.WARNING_MESSAGE);
             this.carregarProdutos();
+            this.limparCampos();
+            this.habilitardDesabilitarCampos(false);
         }else{
-            JOptionPane.showMessageDialog(this, "Erro ao cadastrar o produto !");
-        }
-        
-        
+            JOptionPane.showMessageDialog(this, "Erro ao cadastrar o produto !","ERRO", JOptionPane.ERROR_MESSAGE);
+        }        
     }//GEN-LAST:event_btn_salvar_prodActionPerformed
 
     private void btn_excluir_prodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_excluir_prodActionPerformed
-        // Excluir um produto do banco de dados
+        // Excluir um produto do banco de dados.
         int linha = tb_produto.getSelectedRow();
         int codigoProduto = (int) tb_produto.getValueAt(linha, 0);
         
         if (controllerProdutos.excluirProdutoController(codigoProduto)){
-            JOptionPane.showMessageDialog(this, "Produto excluido com sucesso !");
+            JOptionPane.showMessageDialog(this, "Produto excluido com sucesso !","ATENÇÃO",JOptionPane.WARNING_MESSAGE);
             this.carregarProdutos();
         }else{
-            JOptionPane.showConfirmDialog(this, "Erro ao excluir produto !");
+            JOptionPane.showConfirmDialog(this, "Erro ao excluir produto !","ERRO", JOptionPane.ERROR_MESSAGE);
         }        
     }//GEN-LAST:event_btn_excluir_prodActionPerformed
+
+    private void btn_alterar_prodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_alterar_prodActionPerformed
+        //salvarAlterar = "alterar";
+        this.habilitardDesabilitarCampos(true);
+        // Alterando cadastro de produtos
+        int linha = this.tb_produto.getSelectedRow();
+        try{
+        int codigoProduto = (int) this.tb_produto.getValueAt(linha, 0);
+        
+            //Recuperar dados do banco
+            modelprodutos = controllerProdutos.retornarProdutoController(codigoProduto);
+            //setar na interface
+            this.txt_cod_prod.setText(String.valueOf(modelprodutos.getId_produtos()));
+            this.txt_nome_prod.setText(modelprodutos.getNome_prod());
+            this.txt_estoque_prod.setText(String.valueOf(modelprodutos.getEstoque_prod()));
+            this.txt_valor_prod.setText(String.valueOf(modelprodutos.getEstoque_prod()));
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this,"Código inválido ou nenhum registro selecionado !"," Aviso ",JOptionPane.ERROR_MESSAGE);            
+        
+        }            
+        
+    }//GEN-LAST:event_btn_alterar_prodActionPerformed
 
     /**
      * @param args the command line arguments
@@ -270,6 +309,31 @@ public class frm_produto extends javax.swing.JFrame {
                 new frm_produto().setVisible(true);
             }
         });
+    }
+    
+    private void salvarProduto(){
+        
+    }
+    
+    private void alterarProduto(){
+         
+        
+    }
+    
+    /**
+     * Habilitar e desabilitar 
+     * @param condicao 
+     */
+    private void habilitardDesabilitarCampos(boolean condicao){
+        txt_nome_prod.setEnabled(condicao);
+        txt_estoque_prod.setEnabled(condicao);
+        txt_valor_prod.setEnabled(condicao);        
+    }
+    
+    private void limparCampos(){
+        txt_nome_prod.setText("");
+        txt_estoque_prod.setText("");
+        txt_valor_prod.setText("");
     }
     /**
      * Preenche a tabela de produtos com os produtos cadastrados no banco.
@@ -310,7 +374,7 @@ public class frm_produto extends javax.swing.JFrame {
     private javax.swing.JTextField txt_cod_prod;
     private javax.swing.JTextField txt_estoque_prod;
     private javax.swing.JTextField txt_nome_prod;
-    private javax.swing.JTextField txt_nome_prod1;
+    private javax.swing.JTextField txt_nome_prodPesq;
     private javax.swing.JTextField txt_valor_prod;
     // End of variables declaration//GEN-END:variables
 }
