@@ -1,5 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
+ To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -19,8 +19,8 @@ public class frm_produto extends javax.swing.JFrame {
     
     ArrayList<ModelProdutos> listarModelProdutos = new ArrayList<>();
     ControllerProdutos controllerProdutos = new  ControllerProdutos();
-    ModelProdutos modelprodutos = new ModelProdutos();
-    //String salvarAlterar;
+    ModelProdutos modelProdutos = new ModelProdutos();
+    String salvarAlterar;
 
     /**
      * Creates new form frm_produto
@@ -71,6 +71,10 @@ public class frm_produto extends javax.swing.JFrame {
         jLabel1.setBounds(10, 10, 60, 17);
 
         txt_cod_prod.setEditable(false);
+        txt_cod_prod.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        txt_cod_prod.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txt_cod_prod.setAlignmentX(0.0F);
+        txt_cod_prod.setAlignmentY(0.0F);
         txt_cod_prod.setBorder(null);
         txt_cod_prod.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -222,23 +226,16 @@ public class frm_produto extends javax.swing.JFrame {
     private void btn_novo_prodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_novo_prodActionPerformed
         // Adicionar novo produto.
         habilitardDesabilitarCampos(true);
-        //salvarAlterar = "salvar";
+        salvarAlterar = "salvar";
     }//GEN-LAST:event_btn_novo_prodActionPerformed
 
     private void btn_salvar_prodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salvar_prodActionPerformed
     
-        // Salvando dados no banco
-        modelprodutos.setNome_prod(this.txt_nome_prod.getText());
-        modelprodutos.setEstoque_prod(Integer.parseInt(txt_estoque_prod.getText()));
-        modelprodutos.setValor_prod(Double.parseDouble(this.txt_valor_prod.getText()));
-        if(controllerProdutos.salvarProdutoController(modelprodutos)>0){
-            JOptionPane.showMessageDialog(this, "Produto cadastrado com sucesso ! ","ATENÇÃO",JOptionPane.WARNING_MESSAGE);
-            this.carregarProdutos();
-            this.limparCampos();
-            this.habilitardDesabilitarCampos(false);
-        }else{
-            JOptionPane.showMessageDialog(this, "Erro ao cadastrar o produto !","ERRO", JOptionPane.ERROR_MESSAGE);
-        }        
+        if(salvarAlterar.equals("salvar")){
+        this.salvarProduto();
+            }else if(salvarAlterar.equals("alterar")){
+        this.alterarProduto();
+        } 
     }//GEN-LAST:event_btn_salvar_prodActionPerformed
 
     private void btn_excluir_prodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_excluir_prodActionPerformed
@@ -251,29 +248,31 @@ public class frm_produto extends javax.swing.JFrame {
             this.carregarProdutos();
         }else{
             JOptionPane.showConfirmDialog(this, "Erro ao excluir produto !","ERRO", JOptionPane.ERROR_MESSAGE);
-        }        
+        }  
     }//GEN-LAST:event_btn_excluir_prodActionPerformed
 
     private void btn_alterar_prodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_alterar_prodActionPerformed
-        //salvarAlterar = "alterar";
+        
+// Alterando cadastro de produtos
+        salvarAlterar = "alterar";
         this.habilitardDesabilitarCampos(true);
-        // Alterando cadastro de produtos
-        int linha = this.tb_produto.getSelectedRow();
-        try{
+        
+        int linha = this.tb_produto.getSelectedRow();        
+        try {
         int codigoProduto = (int) this.tb_produto.getValueAt(linha, 0);
         
             //Recuperar dados do banco
-            modelprodutos = controllerProdutos.retornarProdutoController(codigoProduto);
-            //setar na interface
-            this.txt_cod_prod.setText(String.valueOf(modelprodutos.getId_produtos()));
-            this.txt_nome_prod.setText(modelprodutos.getNome_prod());
-            this.txt_estoque_prod.setText(String.valueOf(modelprodutos.getEstoque_prod()));
-            this.txt_valor_prod.setText(String.valueOf(modelprodutos.getEstoque_prod()));
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(this,"Código inválido ou nenhum registro selecionado !"," Aviso ",JOptionPane.ERROR_MESSAGE);            
-        
-        }            
-        
+            modelProdutos = controllerProdutos.retornarProdutoController(codigoProduto);
+            //Setar na interface
+           this.txt_cod_prod.setText(String.valueOf(modelProdutos.getId_produtos()));
+           this.txt_nome_prod.setText(modelProdutos.getNome_prod());
+           this.txt_estoque_prod.setText(String.valueOf(modelProdutos.getEstoque_prod()));
+           this.txt_valor_prod.setText(String.valueOf(modelProdutos.getValor_prod()));            
+        } catch (Exception e) {
+            JOptionPane.showConfirmDialog(this, " Código inválido ou nenhum registro selecionado "," Aviso ! ",JOptionPane.ERROR_MESSAGE);
+            
+        }
+            
     }//GEN-LAST:event_btn_alterar_prodActionPerformed
 
     /**
@@ -312,11 +311,33 @@ public class frm_produto extends javax.swing.JFrame {
     }
     
     private void salvarProduto(){
-        
+    // Salvando dados no banco
+        modelProdutos.setNome_prod(this.txt_nome_prod.getText());
+        modelProdutos.setEstoque_prod(Integer.parseInt(txt_estoque_prod.getText()));
+        modelProdutos.setValor_prod(Double.parseDouble(this.txt_valor_prod.getText()));
+        if(controllerProdutos.salvarProdutoController(modelProdutos)>0){
+            JOptionPane.showMessageDialog(this, "Produto cadastrado com sucesso ! ","ATENÇÃO",JOptionPane.WARNING_MESSAGE);
+            this.carregarProdutos();
+            this.limparCampos();
+            this.habilitardDesabilitarCampos(false);
+        }else{
+            JOptionPane.showMessageDialog(this, "Erro ao cadastrar o produto !","ERRO", JOptionPane.ERROR_MESSAGE);
+        }   
     }
     
     private void alterarProduto(){
-         
+      //Alterar produto
+        modelProdutos.setNome_prod(this.txt_nome_prod.getText());
+        modelProdutos.setEstoque_prod(Integer.parseInt(txt_estoque_prod.getText()));
+        modelProdutos.setValor_prod(Double.parseDouble(this.txt_valor_prod.getText()));        
+        if(controllerProdutos.alterarProdutoController(modelProdutos)){
+            JOptionPane.showMessageDialog(this, "Produto alterado com sucesso ! ","ATENÇÃO",JOptionPane.WARNING_MESSAGE);
+            this.carregarProdutos();
+            this.limparCampos();
+            this.habilitardDesabilitarCampos(false);
+        }else{
+            JOptionPane.showMessageDialog(this, "Erro ao alterar o produto !","ERRO", JOptionPane.ERROR_MESSAGE);
+        }
         
     }
     

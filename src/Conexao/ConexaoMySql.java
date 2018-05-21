@@ -80,7 +80,6 @@ public class ConexaoMySql {
     
     public boolean executarUpdateDeleteSQL(String pSQL){
         try {
-            
             //createStatement de con para criar o Statement
             this.setStatement(getCon().createStatement());
 

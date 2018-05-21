@@ -56,7 +56,6 @@ public class DaoProdutos extends ConexaoMySql {
             this.fecharConexao();
         }
     }
-
     /**
      * Alterar dados do produtos
      *
@@ -66,12 +65,12 @@ public class DaoProdutos extends ConexaoMySql {
     public boolean alterarProdutoDAO(ModelProdutos pModelProdutos) {
         try {
             this.conectar();
-            return this.executarUpdateDeleteSQL(
-                    " UPDATE tbl_produto SET "
-                        + " nome_prod = '" + pModelProdutos.getNome_prod() + "', "
-                        + " valor_prod = '" + pModelProdutos.getValor_prod() + "', "
-                        + " estoque_prod = '" + pModelProdutos.getEstoque_prod() + "', "
-                        + " WHERE pk_id_prod = '" + pModelProdutos.getId_produtos() + "'"
+             return this.executarUpdateDeleteSQL(
+                    "UPDATE tbl_produto SET "
+                    + "nome_prod = '" + pModelProdutos.getNome_prod()+ "',"
+                    + "valor_prod = '" + pModelProdutos.getValor_prod() + "',"
+                    + "estoque_prod = '" + pModelProdutos.getEstoque_prod()+ "'"
+                    + " WHERE pk_id_prod = '" + pModelProdutos.getId_produtos()+ "'"
             );
         } catch (Exception e) {
             return false;
@@ -116,7 +115,7 @@ public class DaoProdutos extends ConexaoMySql {
         
        try {
             this.conectar();
-            this.executarSQL("SELECT pk_id_prod,nome_prod, valor_prod, estoque_prod FROM tbl_produto");
+            this.executarSQL("SELECT pk_id_prod, nome_prod, valor_prod, estoque_prod FROM tbl_produto");
         
             while (this.getResultSet().next()) {
                 modelProdutos = new ModelProdutos();
