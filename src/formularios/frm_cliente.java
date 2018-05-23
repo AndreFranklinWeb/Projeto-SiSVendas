@@ -5,11 +5,20 @@
  */
 package formularios;
 
+import controller.ControllerClientes;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import model.ModelClientes;
+
 /**
  *
  * @author Andre
  */
 public class frm_cliente extends javax.swing.JFrame {
+    
+    ControllerClientes controllerCliente = new ControllerClientes();
+    ModelClientes modelCliente = new ModelClientes();
+    ArrayList<ModelClientes> listaModelClientes = new ArrayList<>();
 
     /**
      * frm_cliente
@@ -40,10 +49,8 @@ public class frm_cliente extends javax.swing.JFrame {
         txt_end_cli = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        txt_tel_cli = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        txt_cep_cli = new javax.swing.JTextField();
-        cbb_estado_cli = new javax.swing.JComboBox<>();
+        cbb_uf_cli = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         tb_cliente = new javax.swing.JTable();
         btn_cancelar_cli = new javax.swing.JButton();
@@ -51,8 +58,11 @@ public class frm_cliente extends javax.swing.JFrame {
         btn_alterar_cli = new javax.swing.JButton();
         btn_salvar_cli = new javax.swing.JButton();
         btn_excluir_cli = new javax.swing.JButton();
+        txt_cep_cli = new javax.swing.JFormattedTextField();
+        txt_tel_cli = new javax.swing.JFormattedTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cadastro de Clientes");
         getContentPane().setLayout(null);
 
         jPanel1.setLayout(null);
@@ -102,18 +112,14 @@ public class frm_cliente extends javax.swing.JFrame {
         jLabel7.setText("Telefone");
         jPanel1.add(jLabel7);
         jLabel7.setBounds(470, 130, 110, 20);
-        jPanel1.add(txt_tel_cli);
-        txt_tel_cli.setBounds(470, 150, 190, 30);
 
         jLabel8.setText("CEP");
         jPanel1.add(jLabel8);
         jLabel8.setBounds(340, 130, 110, 20);
-        jPanel1.add(txt_cep_cli);
-        txt_cep_cli.setBounds(340, 150, 120, 30);
 
-        cbb_estado_cli.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" }));
-        jPanel1.add(cbb_estado_cli);
-        cbb_estado_cli.setBounds(270, 150, 60, 30);
+        cbb_uf_cli.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" }));
+        jPanel1.add(cbb_uf_cli);
+        cbb_uf_cli.setBounds(270, 150, 60, 30);
 
         tb_cliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -145,7 +151,7 @@ public class frm_cliente extends javax.swing.JFrame {
         }
 
         jPanel1.add(jScrollPane1);
-        jScrollPane1.setBounds(10, 200, 650, 240);
+        jScrollPane1.setBounds(10, 200, 650, 170);
 
         btn_cancelar_cli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENS/Cancelar (1).png"))); // NOI18N
         btn_cancelar_cli.setText("Cancelar");
@@ -155,7 +161,7 @@ public class frm_cliente extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btn_cancelar_cli);
-        btn_cancelar_cli.setBounds(20, 460, 110, 40);
+        btn_cancelar_cli.setBounds(10, 390, 120, 40);
 
         btn_novo_cli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENS/Adicionar (1).png"))); // NOI18N
         btn_novo_cli.setText("Novo");
@@ -165,27 +171,48 @@ public class frm_cliente extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btn_novo_cli);
-        btn_novo_cli.setBounds(410, 460, 110, 40);
+        btn_novo_cli.setBounds(400, 390, 120, 40);
 
         btn_alterar_cli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENS/page_edit.png"))); // NOI18N
         btn_alterar_cli.setText("Alterar");
         jPanel1.add(btn_alterar_cli);
-        btn_alterar_cli.setBounds(280, 460, 110, 40);
+        btn_alterar_cli.setBounds(270, 390, 120, 40);
 
         btn_salvar_cli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENS/Salvar (1).png"))); // NOI18N
         btn_salvar_cli.setText("Salvar");
+        btn_salvar_cli.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_salvar_cliActionPerformed(evt);
+            }
+        });
         jPanel1.add(btn_salvar_cli);
-        btn_salvar_cli.setBounds(540, 460, 120, 40);
+        btn_salvar_cli.setBounds(530, 390, 130, 40);
 
         btn_excluir_cli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENS/Excluir (1).png"))); // NOI18N
         btn_excluir_cli.setText("Excluir");
         jPanel1.add(btn_excluir_cli);
-        btn_excluir_cli.setBounds(150, 460, 110, 40);
+        btn_excluir_cli.setBounds(140, 390, 120, 40);
+
+        try {
+            txt_cep_cli.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###-###")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jPanel1.add(txt_cep_cli);
+        txt_cep_cli.setBounds(340, 150, 120, 30);
+
+        try {
+            txt_tel_cli.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jPanel1.add(txt_tel_cli);
+        txt_tel_cli.setBounds(470, 150, 190, 30);
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 670, 520);
+        jPanel1.setBounds(0, 0, 670, 440);
 
-        setSize(new java.awt.Dimension(686, 555));
+        setSize(new java.awt.Dimension(686, 478));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -200,6 +227,27 @@ public class frm_cliente extends javax.swing.JFrame {
     private void btn_novo_cliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_novo_cliActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_novo_cliActionPerformed
+
+    private void btn_salvar_cliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salvar_cliActionPerformed
+        // Salvar cliente
+        modelCliente.setNome_cli(this.txt_nome_cli.getText());
+        modelCliente.setEndereco_cli(this.txt_end_cli.getText());
+        modelCliente.setBairro_cli(this.txt_bairro_cli.getText());
+        modelCliente.setCidade_cli(this.txt_cidade_cli.getText());
+        modelCliente.setUf_cli(this.cbb_uf_cli.getSelectedItem().toString());
+        modelCliente.setCep_cli(this.txt_cep_cli.getText());
+        modelCliente.setTelefone_cli(this.txt_tel_cli.getText());
+        
+        if(controllerCliente.salvarclienteController(modelCliente)>0){
+            JOptionPane.showMessageDialog(this, "Cliente cadastrado com sucesso ! ","ATENÇÃO",JOptionPane.WARNING_MESSAGE);
+          /*  this.carregarProdutos();
+            this.limparCampos();
+            this.habilitardDesabilitarCampos(false);*/
+        }else{
+            JOptionPane.showMessageDialog(this, "Erro ao cadastrar o cliente !","ERRO", JOptionPane.ERROR_MESSAGE);
+        } 
+        
+    }//GEN-LAST:event_btn_salvar_cliActionPerformed
 
     /**
      * @param args the command line arguments
@@ -242,7 +290,7 @@ public class frm_cliente extends javax.swing.JFrame {
     private javax.swing.JButton btn_excluir_cli;
     private javax.swing.JButton btn_novo_cli;
     private javax.swing.JButton btn_salvar_cli;
-    private javax.swing.JComboBox<String> cbb_estado_cli;
+    private javax.swing.JComboBox<String> cbb_uf_cli;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -255,11 +303,11 @@ public class frm_cliente extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tb_cliente;
     private javax.swing.JTextField txt_bairro_cli;
-    private javax.swing.JTextField txt_cep_cli;
+    private javax.swing.JFormattedTextField txt_cep_cli;
     private javax.swing.JTextField txt_cidade_cli;
     private javax.swing.JTextField txt_cod_cli;
     private javax.swing.JTextField txt_end_cli;
     private javax.swing.JTextField txt_nome_cli;
-    private javax.swing.JTextField txt_tel_cli;
+    private javax.swing.JFormattedTextField txt_tel_cli;
     // End of variables declaration//GEN-END:variables
 }

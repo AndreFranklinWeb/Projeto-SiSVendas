@@ -8,8 +8,12 @@ package formularios;
 import controller.ControllerProdutos;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import modelo.ModelProdutos;
+import util.Formatador;
 
 /**
  *
@@ -20,6 +24,7 @@ public class frm_produto extends javax.swing.JFrame {
     ArrayList<ModelProdutos> listarModelProdutos = new ArrayList<>();
     ControllerProdutos controllerProdutos = new  ControllerProdutos();
     ModelProdutos modelProdutos = new ModelProdutos();
+    Formatador formatador = new Formatador();
     String salvarAlterar;
 
     /**
@@ -47,21 +52,22 @@ public class frm_produto extends javax.swing.JFrame {
         txt_nome_prod = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        txt_estoque_prod = new javax.swing.JTextField();
-        txt_valor_prod = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tb_produto = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
-        txt_nome_prodPesq = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        txt_pesq_prod = new javax.swing.JTextField();
+        btn_pesq_prod = new javax.swing.JButton();
         btn_cancelar_pro = new javax.swing.JButton();
         btn_excluir_prod = new javax.swing.JButton();
         btn_alterar_prod = new javax.swing.JButton();
         btn_novo_prod = new javax.swing.JButton();
         btn_salvar_prod = new javax.swing.JButton();
+        txt_estoque_prod = new javax.swing.JFormattedTextField();
+        txt_valor_prod = new javax.swing.JFormattedTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cadastro de Produtos");
         getContentPane().setLayout(null);
 
         jPanel1.setLayout(null);
@@ -93,10 +99,6 @@ public class frm_produto extends javax.swing.JFrame {
         jLabel6.setText("Estoque");
         jPanel1.add(jLabel6);
         jLabel6.setBounds(10, 70, 100, 20);
-        jPanel1.add(txt_estoque_prod);
-        txt_estoque_prod.setBounds(10, 90, 220, 30);
-        jPanel1.add(txt_valor_prod);
-        txt_valor_prod.setBounds(450, 90, 170, 30);
 
         jLabel2.setText("Valor");
         jPanel1.add(jLabel2);
@@ -135,23 +137,23 @@ public class frm_produto extends javax.swing.JFrame {
         }
 
         jPanel1.add(jScrollPane1);
-        jScrollPane1.setBounds(10, 200, 610, 150);
+        jScrollPane1.setBounds(10, 200, 610, 190);
 
         jLabel7.setText("Pesquisar");
         jPanel1.add(jLabel7);
         jLabel7.setBounds(10, 130, 60, 20);
-        jPanel1.add(txt_nome_prodPesq);
-        txt_nome_prodPesq.setBounds(10, 150, 480, 30);
+        jPanel1.add(txt_pesq_prod);
+        txt_pesq_prod.setBounds(10, 150, 480, 30);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENS/Pesquisar (1).png"))); // NOI18N
-        jButton1.setText("Pesquisar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btn_pesq_prod.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENS/Pesquisar (1).png"))); // NOI18N
+        btn_pesq_prod.setText("Pesquisar");
+        btn_pesq_prod.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btn_pesq_prodActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1);
-        jButton1.setBounds(510, 150, 110, 30);
+        jPanel1.add(btn_pesq_prod);
+        btn_pesq_prod.setBounds(510, 150, 110, 30);
 
         btn_cancelar_pro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENS/Cancelar (1).png"))); // NOI18N
         btn_cancelar_pro.setText("Cancelar");
@@ -161,7 +163,7 @@ public class frm_produto extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btn_cancelar_pro);
-        btn_cancelar_pro.setBounds(10, 370, 110, 40);
+        btn_cancelar_pro.setBounds(10, 400, 110, 40);
 
         btn_excluir_prod.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENS/Excluir (1).png"))); // NOI18N
         btn_excluir_prod.setText("Excluir");
@@ -171,7 +173,7 @@ public class frm_produto extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btn_excluir_prod);
-        btn_excluir_prod.setBounds(140, 370, 110, 40);
+        btn_excluir_prod.setBounds(140, 400, 110, 40);
 
         btn_alterar_prod.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENS/page_edit.png"))); // NOI18N
         btn_alterar_prod.setText("Alterar");
@@ -181,7 +183,7 @@ public class frm_produto extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btn_alterar_prod);
-        btn_alterar_prod.setBounds(270, 370, 110, 40);
+        btn_alterar_prod.setBounds(270, 400, 110, 40);
 
         btn_novo_prod.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENS/Adicionar (1).png"))); // NOI18N
         btn_novo_prod.setText("Novo");
@@ -191,7 +193,7 @@ public class frm_produto extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btn_novo_prod);
-        btn_novo_prod.setBounds(400, 370, 100, 40);
+        btn_novo_prod.setBounds(400, 400, 100, 40);
 
         btn_salvar_prod.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENS/Salvar (1).png"))); // NOI18N
         btn_salvar_prod.setText("Salvar");
@@ -201,21 +203,35 @@ public class frm_produto extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btn_salvar_prod);
-        btn_salvar_prod.setBounds(520, 370, 100, 40);
+        btn_salvar_prod.setBounds(520, 400, 100, 40);
+
+        txt_estoque_prod.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+        jPanel1.add(txt_estoque_prod);
+        txt_estoque_prod.setBounds(10, 90, 150, 30);
+
+        txt_valor_prod.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+        jPanel1.add(txt_valor_prod);
+        txt_valor_prod.setBounds(450, 90, 170, 30);
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 630, 420);
+        jPanel1.setBounds(0, 0, 630, 450);
 
-        setBounds(0, 0, 649, 456);
+        setBounds(0, 0, 646, 489);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txt_cod_prodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_cod_prodActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_cod_prodActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btn_pesq_prodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pesq_prodActionPerformed
+        // Pesquisa de produtos
+        DefaultTableModel modelo = (DefaultTableModel)this.tb_produto.getModel();
+        final TableRowSorter<TableModel> classificador = new TableRowSorter<>(modelo);
+        this.tb_produto.setRowSorter(classificador);
+        String texto = txt_pesq_prod.getText();
+        classificador.setRowFilter(RowFilter.regexFilter(texto, 1));
+        
+    }//GEN-LAST:event_btn_pesq_prodActionPerformed
 
     private void btn_cancelar_proActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelar_proActionPerformed
         // Cancelando e limpando o cadastro
@@ -314,7 +330,7 @@ public class frm_produto extends javax.swing.JFrame {
     // Salvando dados no banco
         modelProdutos.setNome_prod(this.txt_nome_prod.getText());
         modelProdutos.setEstoque_prod(Integer.parseInt(txt_estoque_prod.getText()));
-        modelProdutos.setValor_prod(Double.parseDouble(this.txt_valor_prod.getText()));
+        modelProdutos.setValor_prod(formatador.converterVirgulaParaPonto(this.txt_valor_prod.getText()));
         if(controllerProdutos.salvarProdutoController(modelProdutos)>0){
             JOptionPane.showMessageDialog(this, "Produto cadastrado com sucesso ! ","ATENÇÃO",JOptionPane.WARNING_MESSAGE);
             this.carregarProdutos();
@@ -329,7 +345,7 @@ public class frm_produto extends javax.swing.JFrame {
       //Alterar produto
         modelProdutos.setNome_prod(this.txt_nome_prod.getText());
         modelProdutos.setEstoque_prod(Integer.parseInt(txt_estoque_prod.getText()));
-        modelProdutos.setValor_prod(Double.parseDouble(this.txt_valor_prod.getText()));        
+        modelProdutos.setValor_prod(formatador.converterVirgulaParaPonto(this.txt_valor_prod.getText()));        
         if(controllerProdutos.alterarProdutoController(modelProdutos)){
             JOptionPane.showMessageDialog(this, "Produto alterado com sucesso ! ","ATENÇÃO",JOptionPane.WARNING_MESSAGE);
             this.carregarProdutos();
@@ -382,8 +398,8 @@ public class frm_produto extends javax.swing.JFrame {
     private javax.swing.JButton btn_cancelar_pro;
     private javax.swing.JButton btn_excluir_prod;
     private javax.swing.JButton btn_novo_prod;
+    private javax.swing.JButton btn_pesq_prod;
     private javax.swing.JButton btn_salvar_prod;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
@@ -393,9 +409,9 @@ public class frm_produto extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tb_produto;
     private javax.swing.JTextField txt_cod_prod;
-    private javax.swing.JTextField txt_estoque_prod;
+    private javax.swing.JFormattedTextField txt_estoque_prod;
     private javax.swing.JTextField txt_nome_prod;
-    private javax.swing.JTextField txt_nome_prodPesq;
-    private javax.swing.JTextField txt_valor_prod;
+    private javax.swing.JTextField txt_pesq_prod;
+    private javax.swing.JFormattedTextField txt_valor_prod;
     // End of variables declaration//GEN-END:variables
 }
