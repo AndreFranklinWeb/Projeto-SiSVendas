@@ -8,6 +8,7 @@ package formularios;
 import controller.ControllerClientes;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import model.ModelClientes;
 
 /**
@@ -19,12 +20,14 @@ public class frm_cliente extends javax.swing.JFrame {
     ControllerClientes controllerCliente = new ControllerClientes();
     ModelClientes modelCliente = new ModelClientes();
     ArrayList<ModelClientes> listaModelClientes = new ArrayList<>();
-
+    
     /**
      * frm_cliente
      */
     public frm_cliente() {
         initComponents();
+        carregarCliente();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -126,14 +129,14 @@ public class frm_cliente extends javax.swing.JFrame {
 
             },
             new String [] {
-                "CODIGO", "NOME", "CIDADE", "TELEFONE"
+                "CODIGO", "NOME", "CIDADE", "UF", "TELEFONE"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                true, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -144,10 +147,24 @@ public class frm_cliente extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tb_cliente.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tb_cliente);
         if (tb_cliente.getColumnModel().getColumnCount() > 0) {
-            tb_cliente.getColumnModel().getColumn(0).setMinWidth(20);
-            tb_cliente.getColumnModel().getColumn(0).setPreferredWidth(15);
+            tb_cliente.getColumnModel().getColumn(0).setMinWidth(70);
+            tb_cliente.getColumnModel().getColumn(0).setPreferredWidth(70);
+            tb_cliente.getColumnModel().getColumn(0).setMaxWidth(70);
+            tb_cliente.getColumnModel().getColumn(1).setMinWidth(275);
+            tb_cliente.getColumnModel().getColumn(1).setPreferredWidth(275);
+            tb_cliente.getColumnModel().getColumn(1).setMaxWidth(275);
+            tb_cliente.getColumnModel().getColumn(2).setMinWidth(130);
+            tb_cliente.getColumnModel().getColumn(2).setPreferredWidth(130);
+            tb_cliente.getColumnModel().getColumn(2).setMaxWidth(130);
+            tb_cliente.getColumnModel().getColumn(3).setMinWidth(50);
+            tb_cliente.getColumnModel().getColumn(3).setPreferredWidth(50);
+            tb_cliente.getColumnModel().getColumn(3).setMaxWidth(50);
+            tb_cliente.getColumnModel().getColumn(4).setMinWidth(130);
+            tb_cliente.getColumnModel().getColumn(4).setPreferredWidth(130);
+            tb_cliente.getColumnModel().getColumn(4).setMaxWidth(130);
         }
 
         jPanel1.add(jScrollPane1);
@@ -240,8 +257,8 @@ public class frm_cliente extends javax.swing.JFrame {
         
         if(controllerCliente.salvarclienteController(modelCliente)>0){
             JOptionPane.showMessageDialog(this, "Cliente cadastrado com sucesso ! ","ATENÇÃO",JOptionPane.WARNING_MESSAGE);
-          /*  this.carregarProdutos();
-            this.limparCampos();
+          this.carregarCliente();
+            /*  this.limparCampos();
             this.habilitardDesabilitarCampos(false);*/
         }else{
             JOptionPane.showMessageDialog(this, "Erro ao cadastrar o cliente !","ERRO", JOptionPane.ERROR_MESSAGE);
@@ -249,6 +266,25 @@ public class frm_cliente extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btn_salvar_cliActionPerformed
 
+    private void carregarCliente(){
+    listaModelClientes = controllerCliente.getListaclienteController();
+    DefaultTableModel modelo = (DefaultTableModel) tb_cliente.getModel();
+    modelo.setNumRows(0);
+    // Inserir clientes na tabela clientes
+    int cont = listaModelClientes.size();     
+    for (int i = 0; i < cont; i++){
+            
+            modelo.addRow(new Object[]{
+            listaModelClientes.get(i).getId_cliente(),
+            listaModelClientes.get(i).getNome_cli(), 
+            listaModelClientes.get(i).getCidade_cli(),
+            listaModelClientes.get(i).getUf_cli(),
+            listaModelClientes.get(i).getTelefone_cli()
+            });  
+        }
+    }
+    
+    
     /**
      * @param args the command line arguments
      */

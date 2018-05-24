@@ -99,7 +99,7 @@ public class DaoClientes extends ConexaoMySql {
             this.conectar();
             this.executarSQL(
                 "SELECT "
-                    + "id_cliente,"
+                    + "pk_id_cliente,"
                     + "nome_cli,"
                     + "endereco_cli,"
                     + "bairro_cli,"
