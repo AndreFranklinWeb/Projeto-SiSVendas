@@ -130,10 +130,16 @@ public class frm_produto extends javax.swing.JFrame {
         tb_produto.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tb_produto);
         if (tb_produto.getColumnModel().getColumnCount() > 0) {
-            tb_produto.getColumnModel().getColumn(0).setPreferredWidth(100);
+            tb_produto.getColumnModel().getColumn(0).setMinWidth(70);
+            tb_produto.getColumnModel().getColumn(0).setPreferredWidth(70);
+            tb_produto.getColumnModel().getColumn(0).setMaxWidth(70);
             tb_produto.getColumnModel().getColumn(1).setPreferredWidth(250);
-            tb_produto.getColumnModel().getColumn(2).setPreferredWidth(50);
-            tb_produto.getColumnModel().getColumn(3).setPreferredWidth(50);
+            tb_produto.getColumnModel().getColumn(2).setMinWidth(70);
+            tb_produto.getColumnModel().getColumn(2).setPreferredWidth(70);
+            tb_produto.getColumnModel().getColumn(2).setMaxWidth(70);
+            tb_produto.getColumnModel().getColumn(3).setMinWidth(70);
+            tb_produto.getColumnModel().getColumn(3).setPreferredWidth(70);
+            tb_produto.getColumnModel().getColumn(3).setMaxWidth(70);
         }
 
         jPanel1.add(jScrollPane1);
@@ -354,7 +360,6 @@ public class frm_produto extends javax.swing.JFrame {
         }else{
             JOptionPane.showMessageDialog(this, "Erro ao alterar o produto !","ERRO", JOptionPane.ERROR_MESSAGE);
         }
-        
     }
     
     /**

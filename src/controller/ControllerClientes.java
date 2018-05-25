@@ -26,7 +26,7 @@ public class ControllerClientes {
     * @param pId_cliente
     * return ModelClientes
     */
-    public ModelClientes getclienteController(int pId_cliente){
+    public ModelClientes getClienteController(int pId_cliente){
         return this.daocliente.getclienteDAO(pId_cliente);
     }
 

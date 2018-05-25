@@ -20,6 +20,7 @@ public class frm_cliente extends javax.swing.JFrame {
     ControllerClientes controllerCliente = new ControllerClientes();
     ModelClientes modelCliente = new ModelClientes();
     ArrayList<ModelClientes> listaModelClientes = new ArrayList<>();
+    String salvarAlterar;
     
     /**
      * frm_cliente
@@ -27,6 +28,7 @@ public class frm_cliente extends javax.swing.JFrame {
     public frm_cliente() {
         initComponents();
         carregarCliente();
+        habilitardDesabilitarCampos(false);
         setLocationRelativeTo(null);
     }
 
@@ -192,6 +194,11 @@ public class frm_cliente extends javax.swing.JFrame {
 
         btn_alterar_cli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENS/page_edit.png"))); // NOI18N
         btn_alterar_cli.setText("Alterar");
+        btn_alterar_cli.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_alterar_cliActionPerformed(evt);
+            }
+        });
         jPanel1.add(btn_alterar_cli);
         btn_alterar_cli.setBounds(270, 390, 120, 40);
 
@@ -207,6 +214,11 @@ public class frm_cliente extends javax.swing.JFrame {
 
         btn_excluir_cli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGENS/Excluir (1).png"))); // NOI18N
         btn_excluir_cli.setText("Excluir");
+        btn_excluir_cli.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_excluir_cliActionPerformed(evt);
+            }
+        });
         jPanel1.add(btn_excluir_cli);
         btn_excluir_cli.setBounds(140, 390, 120, 40);
 
@@ -238,15 +250,20 @@ public class frm_cliente extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_cod_cliActionPerformed
 
     private void btn_cancelar_cliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelar_cliActionPerformed
-        // TODO add your handling code here:
+        // Cancelar cadastro
+        habilitardDesabilitarCampos(false);
+        limparCampos();
     }//GEN-LAST:event_btn_cancelar_cliActionPerformed
 
     private void btn_novo_cliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_novo_cliActionPerformed
-        // TODO add your handling code here:
+        // Novo cadastro de cliente.
+        habilitardDesabilitarCampos(true);
+        salvarAlterar = "salvar";
     }//GEN-LAST:event_btn_novo_cliActionPerformed
 
     private void btn_salvar_cliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salvar_cliActionPerformed
         // Salvar cliente
+        if(salvarAlterar.equals("salvar")){
         modelCliente.setNome_cli(this.txt_nome_cli.getText());
         modelCliente.setEndereco_cli(this.txt_end_cli.getText());
         modelCliente.setBairro_cli(this.txt_bairro_cli.getText());
@@ -257,33 +274,74 @@ public class frm_cliente extends javax.swing.JFrame {
         
         if(controllerCliente.salvarclienteController(modelCliente)>0){
             JOptionPane.showMessageDialog(this, "Cliente cadastrado com sucesso ! ","ATENÇÃO",JOptionPane.WARNING_MESSAGE);
-          this.carregarCliente();
-            /*  this.limparCampos();
-            this.habilitardDesabilitarCampos(false);*/
+            this.carregarCliente();
+            this.limparCampos();
+            this.habilitardDesabilitarCampos(false);
         }else{
             JOptionPane.showMessageDialog(this, "Erro ao cadastrar o cliente !","ERRO", JOptionPane.ERROR_MESSAGE);
         } 
+        //Alterar cliente
+        }else{
+        modelCliente.setId_cliente(Integer.parseInt(this.txt_cod_cli.getText()));
+        modelCliente.setNome_cli(this.txt_nome_cli.getText());
+        modelCliente.setEndereco_cli(this.txt_end_cli.getText());
+        modelCliente.setBairro_cli(this.txt_bairro_cli.getText());
+        modelCliente.setCidade_cli(this.txt_cidade_cli.getText());
+        modelCliente.setUf_cli(this.cbb_uf_cli.getSelectedItem().toString());
+        modelCliente.setCep_cli(this.txt_cep_cli.getText());
+        modelCliente.setTelefone_cli(this.txt_tel_cli.getText());
         
+        if(controllerCliente.atualizarclienteController(modelCliente)){
+            JOptionPane.showMessageDialog(this, "Cliente alterado com sucesso ! ","ATENÇÃO",JOptionPane.WARNING_MESSAGE);
+            this.carregarCliente();
+            this.limparCampos();
+            this.habilitardDesabilitarCampos(false);
+        }else{
+            JOptionPane.showMessageDialog(this, "Erro ao alterar o cliente !","ERRO", JOptionPane.ERROR_MESSAGE);
+        }      
+        } 
     }//GEN-LAST:event_btn_salvar_cliActionPerformed
 
-    private void carregarCliente(){
-    listaModelClientes = controllerCliente.getListaclienteController();
-    DefaultTableModel modelo = (DefaultTableModel) tb_cliente.getModel();
-    modelo.setNumRows(0);
-    // Inserir clientes na tabela clientes
-    int cont = listaModelClientes.size();     
-    for (int i = 0; i < cont; i++){
+    private void btn_excluir_cliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_excluir_cliActionPerformed
+        // Excluir um cliente do banco de dados.
+        int linha = tb_cliente.getSelectedRow();
+        int codigoCliente = (int) tb_cliente.getValueAt(linha, 0);
+        
+        if (controllerCliente.excluirclienteController(codigoCliente)){
+            JOptionPane.showMessageDialog(this, "Cliente excluido com sucesso !","ATENÇÃO",JOptionPane.WARNING_MESSAGE);
+            this.carregarCliente();
+        }else{
+            JOptionPane.showConfirmDialog(this, "Erro ao excluir Cliente !","ERRO", JOptionPane.ERROR_MESSAGE);
+        }  
+    }//GEN-LAST:event_btn_excluir_cliActionPerformed
+
+    private void btn_alterar_cliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_alterar_cliActionPerformed
+        // TODO add your handling code here:
+        // Alterando cadastro de produtos
+        
+        this.habilitardDesabilitarCampos(true);
+        
+        int linha = this.tb_cliente.getSelectedRow();        
+        try {
+        int codigoCliente = (int) this.tb_cliente.getValueAt(linha, 0);
+        salvarAlterar = "alterar";
+            //Recuperar dados do banco
+            modelCliente = controllerCliente.getClienteController(codigoCliente);
+            //Setar na interface
+           this.txt_cod_cli.setText(String.valueOf(modelCliente.getId_cliente()));
+           this.txt_nome_cli.setText(modelCliente.getNome_cli());
+           this.txt_end_cli.setText(String.valueOf(modelCliente.getEndereco_cli()));
+           this.txt_bairro_cli.setText(String.valueOf(modelCliente.getBairro_cli()));            
+           this.txt_cidade_cli.setText(String.valueOf(modelCliente.getCidade_cli()));            
+           this.cbb_uf_cli.setSelectedItem(String.valueOf(modelCliente.getUf_cli())); 
+           this.txt_cep_cli.setText(String.valueOf(modelCliente.getCep_cli()));
+           this.txt_tel_cli.setText(String.valueOf(modelCliente.getTelefone_cli()));
+        } catch (Exception e) {
+            JOptionPane.showConfirmDialog(this, " Código inválido ou nenhum registro selecionado "," Aviso ! ",JOptionPane.ERROR_MESSAGE);
             
-            modelo.addRow(new Object[]{
-            listaModelClientes.get(i).getId_cliente(),
-            listaModelClientes.get(i).getNome_cli(), 
-            listaModelClientes.get(i).getCidade_cli(),
-            listaModelClientes.get(i).getUf_cli(),
-            listaModelClientes.get(i).getTelefone_cli()
-            });  
         }
-    }
-    
+    }//GEN-LAST:event_btn_alterar_cliActionPerformed
+
     
     /**
      * @param args the command line arguments
@@ -318,6 +376,57 @@ public class frm_cliente extends javax.swing.JFrame {
                 new frm_cliente().setVisible(true);
             }
         });
+    }
+    
+    
+    private void salvarCliente(){
+        
+    }
+    
+    private void alterarCliente(){
+        
+    }
+    
+    //HABILITAR E DESABILITAR CAMPOS
+    private void habilitardDesabilitarCampos(boolean condicao){
+        txt_cod_cli.setEnabled(condicao);    
+        txt_nome_cli.setEnabled(condicao);
+        txt_end_cli.setEnabled(condicao);
+        txt_bairro_cli.setEnabled(condicao);
+        txt_cidade_cli.setEnabled(condicao);
+        cbb_uf_cli.setEnabled(condicao);
+        txt_cep_cli.setEnabled(condicao);
+        txt_tel_cli.setEnabled(condicao);
+    }
+    
+     //LIMPAR CAMPOS
+    private void limparCampos(){
+        txt_cod_cli.setText("");
+        txt_nome_cli.setText("");
+        txt_end_cli.setText("");
+        txt_bairro_cli.setText("");
+        txt_cidade_cli.setText("");        
+        txt_cep_cli.setText("");
+        txt_tel_cli.setText("");
+    }
+    
+    //CARREGA DADOS DO BANCO NA TABELA
+    private void carregarCliente(){
+    listaModelClientes = controllerCliente.getListaclienteController();
+    DefaultTableModel modelo = (DefaultTableModel) tb_cliente.getModel();
+    modelo.setNumRows(0);
+    // Inserir clientes na tabela clientes
+    int cont = listaModelClientes.size();     
+    for (int i = 0; i < cont; i++){
+            
+            modelo.addRow(new Object[]{
+            listaModelClientes.get(i).getId_cliente(),
+            listaModelClientes.get(i).getNome_cli(), 
+            listaModelClientes.get(i).getCidade_cli(),
+            listaModelClientes.get(i).getUf_cli(),
+            listaModelClientes.get(i).getTelefone_cli()
+            });  
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

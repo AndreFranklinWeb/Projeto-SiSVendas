@@ -55,7 +55,7 @@ public class DaoClientes extends ConexaoMySql {
             this.conectar();
             this.executarSQL(
                 "SELECT "
-                    + "id_cliente,"
+                    + "pk_id_cliente,"
                     + "nome_cli,"
                     + "endereco_cli,"
                     + "bairro_cli,"
@@ -66,7 +66,7 @@ public class DaoClientes extends ConexaoMySql {
                  + " FROM"
                      + " tbl_cliente"
                  + " WHERE"
-                     + " id_cliente = '" + pId_cliente + "'"
+                     + " pk_id_cliente = '" + pId_cliente + "'"
                 + ";"
             );
 
@@ -142,7 +142,7 @@ public class DaoClientes extends ConexaoMySql {
             this.conectar();
             return this.executarUpdateDeleteSQL(
                 "UPDATE tbl_cliente SET "
-                    + "id_cliente = '" + pModelcliente.getId_cliente() + "',"
+                    + "pk_id_cliente = '" + pModelcliente.getId_cliente() + "',"
                     + "nome_cli = '" + pModelcliente.getNome_cli() + "',"
                     + "endereco_cli = '" + pModelcliente.getEndereco_cli() + "',"
                     + "bairro_cli = '" + pModelcliente.getBairro_cli() + "',"
@@ -151,7 +151,7 @@ public class DaoClientes extends ConexaoMySql {
                     + "cep_cli = '" + pModelcliente.getCep_cli() + "',"
                     + "telefone_cli = '" + pModelcliente.getTelefone_cli() + "'"
                 + " WHERE "
-                    + "id_cliente = '" + pModelcliente.getId_cliente() + "'"
+                    + "pk_id_cliente = '" + pModelcliente.getId_cliente() + "'"
                 + ";"
             );
         }catch(Exception e){
@@ -171,15 +171,12 @@ public class DaoClientes extends ConexaoMySql {
         try {
             this.conectar();
             return this.executarUpdateDeleteSQL(
-                "DELETE FROM tbl_cliente "
-                + " WHERE "
-                    + "id_cliente = '" + pId_cliente + "'"
-                + ";"
+                    "DELETE FROM tbl_cliente WHERE pk_id_cliente = '" + pId_cliente + "'"
             );
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
-        }finally{
+        } finally {
             this.fecharConexao();
         }
     }
