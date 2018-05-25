@@ -1,6 +1,6 @@
 package DAO;
 
-import model.ModelClientes;
+import modelo.ModelClientes;
 import conexao.ConexaoMySql;
 import java.util.ArrayList;
 /**

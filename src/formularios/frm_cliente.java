@@ -9,7 +9,7 @@ import controller.ControllerClientes;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.ModelClientes;
+import modelo.ModelClientes;
 
 /**
  *
@@ -376,15 +376,6 @@ public class frm_cliente extends javax.swing.JFrame {
                 new frm_cliente().setVisible(true);
             }
         });
-    }
-    
-    
-    private void salvarCliente(){
-        
-    }
-    
-    private void alterarCliente(){
-        
     }
     
     //HABILITAR E DESABILITAR CAMPOS

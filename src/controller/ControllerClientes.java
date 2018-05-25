@@ -1,6 +1,6 @@
 package controller;
 
-import model.ModelClientes;
+import modelo.ModelClientes;
 import DAO.DaoClientes;
 import java.util.ArrayList;
 
