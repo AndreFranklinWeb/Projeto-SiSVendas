@@ -77,6 +77,9 @@ public class frm_cliente extends javax.swing.JFrame {
         jLabel1.setBounds(10, 10, 60, 17);
 
         txt_cod_cli.setEditable(false);
+        txt_cod_cli.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txt_cod_cli.setText(" ");
+        txt_cod_cli.setAlignmentX(0.0F);
         txt_cod_cli.setBorder(null);
         txt_cod_cli.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
